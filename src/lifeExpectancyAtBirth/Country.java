@@ -44,7 +44,7 @@ public class Country {
 	}
 
 	/**
-	 * Class addExpectancyYear use Class ExpectancyYear to add and store data
+	 * Class addExpectancyYear() use Class ExpectancyYear to add and store data
 	 *
 	 * @param newYear 	[variable stores the year for one subscription data]
 	 * @param singleExpectancy	[variable stores expectancies number of one year]
@@ -64,17 +64,19 @@ public class Country {
 	}
 
 	/**
-	 * Class getNumSubscriptionsForPeriod can calculate total number of
+	 * Method getAverageNumExpectanciesForPeriod() can calculate total number of
 	 * expectancies between the start and end year that the user requests
 	 *
 	 * @param yearI	  [starting year which the user wants to start]
 	 * @param yearII  [ending year which the user wants to end]
 	 * @throws IllegalArgumentException	[a message that contains error message]
-	 * @return subsCount [total number of expectancies between start and end year]
+	 * @return averageLifeExpectancy [the average life expectancy between start and end year]
 	 * @author Zerong Li, Qianli Li
 	 */
-	public double getNumExpectanciesForPeriod(int yearI, int yearII) throws IllegalArgumentException {
-		double subsCount = 0;
+	public double getAverageNumExpectanciesForPeriod(int yearI, int yearII) throws IllegalArgumentException {
+		double totalLifeExpectancy = 0;
+		double averageLifeExpectancy = 0;
+		int yearCount = 0;
 
 		// two sides are out of bound (xxx----xxx)
 		if ((yearI < this.minYear) && (this.maxYear < yearII)) {
@@ -120,16 +122,17 @@ public class Country {
 		}
 
 		Iterator<ExpectancyYear> itr = expectancies.iterator(); // Traversing in the SubscriptionYear list
+		yearCount = yearII - yearI;
 		while (itr.hasNext()) {
 			ExpectancyYear subYear = itr.next();
 			int year = subYear.getYear();
 			if (year >= yearI && year <= yearII)
-				subsCount += subYear.getExpectancies();
+				totalLifeExpectancy += subYear.getExpectancies();
 			if (year > yearII)
 				break;
 		}
-
-		return subsCount;
+		averageLifeExpectancy = totalLifeExpectancy / yearCount;
+		return averageLifeExpectancy;
 	}
 
 	/**

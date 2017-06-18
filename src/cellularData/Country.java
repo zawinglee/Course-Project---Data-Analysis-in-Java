@@ -44,7 +44,7 @@ public class Country {
 	}
 	
 	/**
-	 * Class addSubscriptionYear use Class SubscriptionYear to add and store data
+	 * Method addSubscriptionYear() use Class SubscriptionYear to add and store data
 	 * 
 	 * @param newYear 	[variable stores the year for one subscription data]
 	 * @param singleSubscription	[variable stores subscriptions number of one year]
@@ -64,7 +64,7 @@ public class Country {
 	}
 
 	/**
-	 * Class getNumSubscriptionsForPeriod can calculate total number of
+	 * Method getNumSubscriptionsForPeriod() can calculate total number of
 	 * subscriptions between the start and end year that the user requests
 	 * 
 	 * @param yearI	  [starting year which the user wants to start]
