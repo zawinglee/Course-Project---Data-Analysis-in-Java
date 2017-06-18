@@ -122,7 +122,7 @@ public class ChartGraph extends Application {
         graphView.update();
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
-        Scene scene = new Scene(borderPane, 600, 600);
+        Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
         this.theStage.setTitle("GraphView Test");
