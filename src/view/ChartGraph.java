@@ -4,11 +4,14 @@ import java.util.Optional;
 
 import cellularData.DataModelCD;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import lifeExpectancyAtBirth.DataModelLE;
@@ -52,23 +55,58 @@ public class ChartGraph extends Application {
     }
 
     /**
-     * Method HBox creates two buttons which are Subscription
+     * Method layout() creates a BorderPane that contains
+     * all elements in the each graph should have
+     *
+     * @return borderPane   [a borderPane contains all elements]
+     * @author ZerongLi, Qianli Li
+     */
+    public BorderPane layout() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPadding(new Insets(20));
+
+        AnchorPane right = new AnchorPane();
+        right.getChildren().add(dataAnalysisButton()); // places the data analysis switchGraphButton
+
+        AnchorPane left = new AnchorPane();
+        left.getChildren().add(switchGraphButton()); // places the switching buttons
+
+        borderPane.setLeft(left);
+        borderPane.setRight(right);
+        return borderPane;
+    }
+    /**
+     * Method dataAnalysisButton() creates two buttons which are Subscription
      * and Birth Expectancy
      *
-     * @return hBox
+     * @return hBox     [a pane that contains the data analysis button]
      * @author Zerong Li, Qianli Li
      */
-    public HBox button() {
+    public HBox dataAnalysisButton() {
         HBox hBox = new HBox();
-        hBox.setSpacing(10);
+        hBox.setSpacing(5);
         hBox.setAlignment(Pos.CENTER);
+        Button btd = new Button("Data Analysis");
+        hBox.getChildren().add(btd);
+        return hBox;
+    }
+
+    /**
+     * Method switchGraphButton() creates two buttons which are Subscription
+     * and Birth Expectancy
+     *
+     * @return vBox     [a pane that contains two vertical buttons]
+     * @author Zerong Li, Qianli Li
+     */
+    public VBox switchGraphButton() {
+        VBox vBox = new VBox();
         Button btS = new Button("Subscription");
         Button btE = new Button("Birth Expectancy");
-        hBox.getChildren().add(btS);
-        hBox.getChildren().add(btE);
+        vBox.getChildren().addAll(btS, btE);
+        vBox.setSpacing(10);
         btS.setOnAction(e -> subscriptionScene());
         btE.setOnAction(e -> expectancyScene());
-        return hBox;
+        return vBox;
     }
 
     /**
@@ -76,16 +114,15 @@ public class ChartGraph extends Application {
      * contains the subscription graph
      *
      * @return scene
-     * @author Zerong Li, Sally Li
+     * @author Zerong Li, Qianli Li
      */
     public Scene subscriptionScene() {
         DataModelCD model = new DataModelCD();
         GraphView graphView = new GraphView(model, UserInputWindow());
         graphView.update();
-        BorderPane borderPane = new BorderPane();
-        borderPane.setBottom(button());
+        BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
-        Scene scene = new Scene(borderPane, 800, 600);
+        Scene scene = new Scene(borderPane, 600, 600);
         this.theStage.setScene(scene);
         // Set the stage title
         this.theStage.setTitle("GraphView Test");
@@ -99,16 +136,15 @@ public class ChartGraph extends Application {
      * contains the life expectancy graph
      *
      * @return scene
-     * @author Zerong Li, Sally Li
+     * @author Zerong Li, Qianli Li
      */
     public Scene expectancyScene() {
         DataModelLE model = new DataModelLE();
         GraphView2 graphView = new GraphView2(model, UserInputWindow());
         graphView.update();
-        BorderPane borderPane = new BorderPane();
-        borderPane.setBottom(button());
-        borderPane.setCenter(graphView);
-        Scene scene = new Scene(borderPane, 800, 600);
+        BorderPane borderPane = layout();
+        borderPane.setCenter(graphView);    // places the graph
+        Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
         this.theStage.setTitle("GraphView Test");
@@ -122,7 +158,7 @@ public class ChartGraph extends Application {
      * ask the number of countries on the graph
      *
      * @return userInput
-     * @author Zerong Li, Sally Li
+     * @author Zerong Li, Qianli Li
      */
     public int UserInputWindow() {
         TextInputDialog dialog = new TextInputDialog("5");
