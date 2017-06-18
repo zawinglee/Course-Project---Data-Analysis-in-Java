@@ -148,7 +148,7 @@ public class LinkedList<T> implements Iterable<T> {
 	}
 
 	/**
-	 * create an iterator object that starts at beginning of the list
+	 * Creates an iterator object that starts at beginning of the list
 	 * 
 	 * @return ListIterator [a iterator object that travel the linked list]
 	 * @author Zerong Li
@@ -159,7 +159,7 @@ public class LinkedList<T> implements Iterable<T> {
 	}
 
 	/**
-	 * an inner class of LinkedList that is used to traverse the collection of
+	 * An inner class of LinkedList that is used to traverse the collection of
 	 * objects in the list
 	 * 
 	 * @author Zerong Li
@@ -177,7 +177,7 @@ public class LinkedList<T> implements Iterable<T> {
 		}
 
 		/**
-		 * a method that tests whether the Node is the last node in the linked list
+		 * A method that tests whether the Node is the last node in the linked list
 		 * 
 		 * @author Zerong Li
 		 */
@@ -189,7 +189,7 @@ public class LinkedList<T> implements Iterable<T> {
 		}
 
 		/**
-		 * a method that returns the next object in the linked list
+		 * A method that returns the next object in the linked list
 		 * 
 		 * @return data [the next object in the linked list]
 		 * @throws NoSuchElementException	[Thrown to indicate that there are no more elements in the enumeration]
@@ -204,5 +204,4 @@ public class LinkedList<T> implements Iterable<T> {
 			return data;
 		}
 	}
-
 }

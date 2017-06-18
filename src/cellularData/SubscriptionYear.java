@@ -32,7 +32,7 @@ public class SubscriptionYear {
 	}
 
 	/**
-	 * sets subscriptions number
+	 * Sets subscriptions number
 	 * 
 	 * @param totalSubscriptions [variable that stores the number of subscriptions for a specific year]
 	 * @author Zerong Li
@@ -52,7 +52,7 @@ public class SubscriptionYear {
 	}
 
 	/**
-	 * sets the year for a specific subscriptions data
+	 * Sets the year for a specific subscriptions data
 	 * 
 	 * @param newYear		[variable stores the year for one subscription data]
 	 * @author Zerong Li
