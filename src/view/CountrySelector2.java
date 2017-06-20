@@ -5,7 +5,7 @@ import java.util.Random;
 import lifeExpectancyAtBirth.*;
 
 public class CountrySelector2 {
-    private LinkedList<Country> selectedCountries;
+    private LinkedList<LifeExpectancyCountry> selectedCountries;
 
     /**
      * Builds a linked list of random countries
@@ -14,13 +14,13 @@ public class CountrySelector2 {
      * @param requestedSize [The requested number of elements]
      * @author Zerong Li (Jerry), Qianli Li
      */
-    public CountrySelector2(Country[] allCountries, int requestedSize) {
+    public CountrySelector2(LifeExpectancyCountry[] allCountries, int requestedSize) {
         // Build the list out of a random selection of countries.
         Random random = new Random();
 
         // A singly linked list of country data.
         int[] traverse = new int[requestedSize];
-        selectedCountries = new LinkedList<Country>();
+        selectedCountries = new LinkedList<LifeExpectancyCountry>();
         for (int i = 0; i < requestedSize; i++) {
             int selectedIndex = random.nextInt(allCountries.length);
 
@@ -46,7 +46,7 @@ public class CountrySelector2 {
      *
      * @return LinkedList of Country objects.
      */
-    public LinkedList<Country> selectCountries() {
+    public LinkedList<LifeExpectancyCountry> selectCountries() {
         return this.selectedCountries;
     }
 }

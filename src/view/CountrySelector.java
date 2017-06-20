@@ -2,11 +2,11 @@ package view;
 
 import java.util.Random;
 
-import cellularData.Country;
+import cellularData.CellularDataCountry;
 import cellularData.LinkedList;
 
 public class CountrySelector {
-	private LinkedList<Country> selectedCountries;
+	private LinkedList<CellularDataCountry> selectedCountries;
 
 	/**
 	 * Builds a linked list of random countries
@@ -15,13 +15,13 @@ public class CountrySelector {
 	 * @param requestedSize [The requested number of elements]
 	 * @author Zerong Li (Jerry), Qianli Li
 	 */
-	public CountrySelector(Country[] allCountries, int requestedSize) {
+	public CountrySelector(CellularDataCountry[] allCountries, int requestedSize) {
 		// Build the list out of a random selection of countries.
 		Random random = new Random();
 
 		// A singly linked list of country data.
 		int[] traverse = new int[requestedSize];
-		selectedCountries = new LinkedList<Country>();
+		selectedCountries = new LinkedList<CellularDataCountry>();
 		for (int i = 0; i < requestedSize; i++) {
 			int selectedIndex = random.nextInt(allCountries.length);
 
@@ -47,7 +47,7 @@ public class CountrySelector {
 	 * 
 	 * @return LinkedList of Country objects.
 	 */
-	public LinkedList<Country> selectCountries() {
+	public LinkedList<CellularDataCountry> selectCountries() {
 		return this.selectedCountries;
 	}
 }
