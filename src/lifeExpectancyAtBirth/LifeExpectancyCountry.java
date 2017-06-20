@@ -8,7 +8,7 @@ import java.util.Iterator;
  * 
  * @author Zerong Li (Jerry), Qianli Li
  */
-public class Country {
+public class LifeExpectancyCountry {
 	private String name;
 	private int minYear;
 	private int maxYear;
@@ -20,7 +20,7 @@ public class Country {
 	 * @param newName	[variable stores the country name]
 	 * @author Zerong Li, Qianli Li
 	 */
-	public Country(String newName) {
+	public LifeExpectancyCountry(String newName) {
 		this.expectancies = new LinkedList<ExpectancyYear>();
 		this.name = newName;
 		this.minYear = 9999;
@@ -34,8 +34,8 @@ public class Country {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		if (other instanceof Country) {
-			Country obj = (Country) other;
+		if (other instanceof LifeExpectancyCountry) {
+			LifeExpectancyCountry obj = (LifeExpectancyCountry) other;
 			if (obj.getName().equalsIgnoreCase(this.name)) {
 				return true;
 			}
@@ -168,5 +168,12 @@ public class Country {
 	 */
 	public LinkedList<ExpectancyYear> getSubscription() {
 		return this.expectancies;
+	}
+
+	public int getMinYear() {
+		return this.minYear;
+	}
+	public int getMaxYear() {
+		return this.maxYear;
 	}
 }
