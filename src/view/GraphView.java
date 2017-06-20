@@ -19,6 +19,7 @@ public class GraphView extends LineChart<Number, Number> {
     private final NumberAxis xAxis;
     private final NumberAxis yAxis;
     private int size;
+    private LinkedList<CellularDataCountry> selectedCountries;
 
     /**
      * Constructor of Class GraphView which takes the Country linked list as parameter
@@ -46,12 +47,13 @@ public class GraphView extends LineChart<Number, Number> {
      * @author Zerong Li, Qianli Li
      */
     public void update() {
-        Country[] cellularData = this.model.getCellularData(); // get all country data
+        CellularDataCountry[] cellularData = this.model.getCellularData(); // get all country data
         CountrySelector countrySelector = new CountrySelector(cellularData, this.size); // select some countries
-        LinkedList<Country> selectedCountryList = countrySelector.selectCountries();
-        Iterator<Country> itr = selectedCountryList.iterator();
+        LinkedList<CellularDataCountry> selectedCountryList = countrySelector.selectCountries();
+        this.selectedCountries = selectedCountryList;
+        Iterator<CellularDataCountry> itr = selectedCountryList.iterator();
         while (itr.hasNext()) {
-            Country selectCountry = itr.next();
+            CellularDataCountry selectCountry = itr.next();
             Series<Number, Number> currentSeries = this.seriesFromCountry(selectCountry);
             this.getData().add(currentSeries);
         }
@@ -65,8 +67,8 @@ public class GraphView extends LineChart<Number, Number> {
      * @return countrySeries    [the line that has been drawn]
      * @author Zerong Li, Qianli Li
      */
-    public Series<Number, Number> seriesFromCountry(Country newCountry) {
-        Country currentCountry = newCountry;
+    public Series<Number, Number> seriesFromCountry(CellularDataCountry newCountry) {
+        CellularDataCountry currentCountry = newCountry;
         String name = currentCountry.getName();
         XYChart.Series<Number, Number> countrySeries = new XYChart.Series<Number, Number>();
         countrySeries.setName(name);
@@ -79,5 +81,15 @@ public class GraphView extends LineChart<Number, Number> {
             countrySeries.getData().add(currentData);
         }
         return countrySeries;
+    }
+
+    /**
+     * Accessor method for selected list of countries.
+     *
+     * @return LinkedList of Country objects
+     * @author Zerong Li
+     */
+    public LinkedList<CellularDataCountry> getSelectedCountries() {
+        return this.selectedCountries;
     }
 }

@@ -19,6 +19,7 @@ public class GraphView2 extends LineChart<Number, Number> {
     private final NumberAxis xAxis;
     private final NumberAxis yAxis;
     private int size;
+    private LinkedList<LifeExpectancyCountry> selectedCountries;
 
     /**
      * Constructor of Class GraphView which takes the Country linked list as parameter
@@ -46,12 +47,13 @@ public class GraphView2 extends LineChart<Number, Number> {
      * @author Zerong Li, Qianli Li
      */
     public void update() {
-        Country[] lifeExpectancy = this.model.getLifeExpectancy(); // get all country data
+        LifeExpectancyCountry[] lifeExpectancy = this.model.getLifeExpectancy(); // get all country data
         CountrySelector2 countrySelector = new CountrySelector2(lifeExpectancy, this.size); // select some countries
-        LinkedList<Country> selectedCountryList = countrySelector.selectCountries();
-        Iterator<Country> itr = selectedCountryList.iterator();
+        LinkedList<LifeExpectancyCountry> selectedCountryList = countrySelector.selectCountries();
+        this.selectedCountries = selectedCountryList;
+        Iterator<LifeExpectancyCountry> itr = selectedCountryList.iterator();
         while (itr.hasNext()) {
-            Country selectCountry = itr.next();
+            LifeExpectancyCountry selectCountry = itr.next();
             Series<Number, Number> currentSeries = this.seriesFromCountry(selectCountry);
             this.getData().add(currentSeries);
         }
@@ -65,8 +67,8 @@ public class GraphView2 extends LineChart<Number, Number> {
      * @return countrySeries    [the line that has been drawn]
      * @author Zerong Li, Qianli Li
      */
-    public Series<Number, Number> seriesFromCountry(Country newCountry) {
-        Country currentCountry = newCountry;
+    public Series<Number, Number> seriesFromCountry(LifeExpectancyCountry newCountry) {
+        LifeExpectancyCountry currentCountry = newCountry;
         String name = currentCountry.getName();
         XYChart.Series<Number, Number> countrySeries = new XYChart.Series<Number, Number>();
         countrySeries.setName(name);
@@ -79,5 +81,15 @@ public class GraphView2 extends LineChart<Number, Number> {
             countrySeries.getData().add(currentData);
         }
         return countrySeries;
+    }
+
+    /**
+     * Accessor method for selected list of countries.
+     *
+     * @return LinkedList of Country objects
+     * @author Zerong Li
+     */
+    public LinkedList<LifeExpectancyCountry> getSelectedCountries() {
+        return this.selectedCountries;
     }
 }

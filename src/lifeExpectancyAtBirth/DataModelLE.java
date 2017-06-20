@@ -6,14 +6,14 @@ package lifeExpectancyAtBirth;
  */
 public class DataModelLE 
 {
-	private Country[] lifeExpectancy;
+	private LifeExpectancyCountry[] lifeExpectancy;
 
 	public DataModelLE()
 	{
 		lifeExpectancy = parseCSVFile("resources/lifeExpectancyAtBirth.csv");
 	}
 	
-	private Country[] parseCSVFile(final String filename)
+	private LifeExpectancyCountry[] parseCSVFile(final String filename)
 	{
 		// Parses the CSV data file
 		// NOTE: Handle all exceptions in the constructor.
@@ -27,13 +27,13 @@ public class DataModelLE
 
 
 		// Holds the data for all Country object read from the input data file.
-		Country[] countries;
+		LifeExpectancyCountry[] countries;
  
 		// Initializes the to the number of entries read by CSVReader.
-		countries = new Country[countryNames.length];
+		countries = new LifeExpectancyCountry[countryNames.length];
 
 		// Reference to a Country object
-		Country current;
+		LifeExpectancyCountry current;
 
 		// Go through each country name parsed from the CSV file.
 		for (int countryIndex = 0; countryIndex < countries.length; countryIndex++)
@@ -50,7 +50,7 @@ public class DataModelLE
 			// TODO: Once you are successful in creating a generic LinkedList of countries, create a
 			// 		 LinkedList of SubscriptionYear in the Country class.
 			// 	     So, your Country class should no longer have an array of SubscriptionYear objects.
-			current = new Country(countryNames[countryIndex]);	// version 2 and final version of Country constructor
+			current = new LifeExpectancyCountry(countryNames[countryIndex]);	// version 2 and final version of Country constructor
 
 			// Go through each year of cellular data read from the CSV file.
 			for (int yearIndex = 0; yearIndex < numberOfYears; yearIndex++)
@@ -67,7 +67,7 @@ public class DataModelLE
 		return countries;
 	}
 	
-	public Country[] getLifeExpectancy()
+	public LifeExpectancyCountry[] getLifeExpectancy()
 	{
 		return this.lifeExpectancy;
 	}

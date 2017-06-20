@@ -1,7 +1,7 @@
 package cellularData;
 
 import cellularData.CSVReader;
-import cellularData.Country;
+import cellularData.CellularDataCountry;
 
 /**
  * Provides access to CSV data.
@@ -9,14 +9,14 @@ import cellularData.Country;
  */
 public class DataModelCD 
 {
-	private Country[] cellularModel;
+	private CellularDataCountry[] cellularModel;
 
 	public DataModelCD()
 	{
 		cellularModel = parseCSVFile("resources/cellular.csv");		
 	}
 	
-	private Country[] parseCSVFile(final String filename)
+	private CellularDataCountry[] parseCSVFile(final String filename)
 	{
 		// Parses the CSV data file
 		// NOTE: Handle all exceptions in the constructor.
@@ -30,13 +30,13 @@ public class DataModelCD
 
 
 		// Holds the data for all Country object read from the input data file.
-		Country [] countries;
+		CellularDataCountry [] countries;
  
 		// Initializes the to the number of entries read by CSVReader.
-		countries = new Country[countryNames.length];
+		countries = new CellularDataCountry[countryNames.length];
 
 		// Reference to a Country object
-		Country current;
+		CellularDataCountry current;
 
 		// Go through each country name parsed from the CSV file.
 		for (int countryIndex = 0; countryIndex < countries.length; countryIndex++)
@@ -53,7 +53,7 @@ public class DataModelCD
 			// TODO: Once you are successful in creating a generic LinkedList of countries, create a
 			// 		 LinkedList of SubscriptionYear in the Country class.
 			// 	     So, your Country class should no longer have an array of SubscriptionYear objects.
-			current = new Country(countryNames[countryIndex]);	// version 2 and final version of Country constructor
+			current = new CellularDataCountry(countryNames[countryIndex]);	// version 2 and final version of Country constructor
 
 			// Go through each year of cellular data read from the CSV file.
 			for (int yearIndex = 0; yearIndex < numberOfYears; yearIndex++)
@@ -70,7 +70,7 @@ public class DataModelCD
 		return countries;
 	}
 	
-	public Country[] getCellularData()
+	public CellularDataCountry[] getCellularData()
 	{
 		return this.cellularModel;
 	}
