@@ -2,7 +2,9 @@ package view;
 
 import java.util.Optional;
 
+import cellularData.CellularDataCountry;
 import cellularData.DataModelCD;
+import cellularData.LinkedList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import lifeExpectancyAtBirth.DataModelLE;
+import lifeExpectancyAtBirth.LifeExpectancyCountry;
 
 /**
  * Instantiates an JavaFX application which creates a model of the data. Uses
@@ -26,6 +29,8 @@ import lifeExpectancyAtBirth.DataModelLE;
  */
 public class ChartGraph extends Application {
     private Stage theStage;
+    private LinkedList<CellularDataCountry> selectedCDCountries;
+    private lifeExpectancyAtBirth.LinkedList<LifeExpectancyCountry> selectedLECountries;
 
     /**
      * Called by launch method of Application
@@ -88,6 +93,7 @@ public class ChartGraph extends Application {
         hBox.setAlignment(Pos.CENTER);
         Button btd = new Button("Data Analysis");
         hBox.getChildren().add(btd);
+        btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
         return hBox;
     }
 
@@ -120,6 +126,13 @@ public class ChartGraph extends Application {
         DataModelCD model = new DataModelCD();
         GraphView graphView = new GraphView(model, UserInputWindow());
         graphView.update();
+        if (this.selectedLECountries == null) { // random generate a Life expectancy chart for calculating
+            DataModelLE model2 = new DataModelLE();
+            GraphView2 graphView2 = new GraphView2(model2, 5);
+            graphView2.update();
+            this.selectedLECountries = graphView2.getSelectedCountries();
+        }
+        this.selectedCDCountries = graphView.getSelectedCountries();
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
         Scene scene = new Scene(borderPane, 1000, 600);
@@ -142,6 +155,13 @@ public class ChartGraph extends Application {
         DataModelLE model = new DataModelLE();
         GraphView2 graphView = new GraphView2(model, UserInputWindow());
         graphView.update();
+        if (this.selectedCDCountries == null) { // random generate a subscription chart for calculating
+            DataModelCD model2 = new DataModelCD();
+            GraphView graphView2 = new GraphView(model2, 5);
+            graphView2.update();
+            this.selectedCDCountries = graphView2.getSelectedCountries();
+        }
+        this.selectedLECountries = graphView.getSelectedCountries();
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);    // places the graph
         Scene scene = new Scene(borderPane, 1000, 600);
