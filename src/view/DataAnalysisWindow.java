@@ -6,11 +6,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 import lifeExpectancyAtBirth.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
@@ -22,7 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 
 /**
@@ -35,7 +37,16 @@ import java.util.Iterator;
 public class DataAnalysisWindow {
     private LinkedList<CellularDataCountry> selectedCDCountries;
     private lifeExpectancyAtBirth.LinkedList<LifeExpectancyCountry> selectedLECountries;
-    private int maximumYear;
+    private CellularDataCountry[] allCDCountries;
+    private LifeExpectancyCountry[] allLECountries;
+    private int startYear = 0;
+    private int endYear = 0;
+    private int maximumYear = 0;
+    private ChoiceBox<String> CDorLE;
+    private ChoiceBox<String> countryChoiceBox1;
+    private ChoiceBox<String> countryChoiceBox2;
+    private ChoiceBox<String> countryChoiceBox3;
+    private ChoiceBox<String> countryChoiceBox4;
 
     public DataAnalysisWindow(LinkedList<CellularDataCountry> newCDList, lifeExpectancyAtBirth.LinkedList<LifeExpectancyCountry> newLEList) {
         Stage stage = new Stage();
@@ -65,8 +76,9 @@ public class DataAnalysisWindow {
 
 
         ObservableList<?> elements = FXCollections.observableArrayList("Total Subscription (All Countries)", "Average Life Expectancy (All Countries)", separator,
-                                                                            "Total Subscription (Graph Only)", "Average Life Expectancy (Graph Only)");
+                "Total Subscription (Graph Only)", "Average Life Expectancy (Graph Only)");
         ChoiceBox<String> CDorLE = new ChoiceBox<>((ObservableList<String>) elements);
+        this.CDorLE = CDorLE;
 
         ChoiceBox<String> empty = new ChoiceBox<>();
         empty.getItems().add("Please make selection first");
@@ -83,30 +95,37 @@ public class DataAnalysisWindow {
         ChoiceBox<String> countryChoiceBox1 = new ChoiceBox<>();
         DataModelCD dataModelCD = new DataModelCD();
         CellularDataCountry[] allCDCountries = dataModelCD.getCellularData();
+        this.allCDCountries = allCDCountries;
         for (int i = 0; i < allCDCountries.length; i++) {
             countryChoiceBox1.getItems().add(allCDCountries[i].getName());
         }
+        this.countryChoiceBox1 = countryChoiceBox1;
 
         ChoiceBox<String> countryChoiceBox2 = new ChoiceBox<>();
         DataModelLE dataModelLE = new DataModelLE();
         LifeExpectancyCountry[] allLECountries = dataModelLE.getLifeExpectancy();
+        this.allLECountries = allLECountries;
         for (int i = 0; i < allLECountries.length; i++) {
             countryChoiceBox2.getItems().add(allLECountries[i].getName());
         }
+        this.countryChoiceBox2 = countryChoiceBox2;
+
 
         ChoiceBox<String> countryChoiceBox3 = new ChoiceBox<>();
         Iterator<CellularDataCountry> itr = this.selectedCDCountries.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             CellularDataCountry currentCountry = itr.next();
             countryChoiceBox3.getItems().add(currentCountry.getName());
         }
+        this.countryChoiceBox3 = countryChoiceBox3;
 
         ChoiceBox<String> countryChoiceBox4 = new ChoiceBox<>();
         Iterator<LifeExpectancyCountry> itr2 = this.selectedLECountries.iterator();
-        while(itr2.hasNext()) {
+        while (itr2.hasNext()) {
             LifeExpectancyCountry currentCountry = itr2.next();
             countryChoiceBox4.getItems().add(currentCountry.getName());
         }
+        this.countryChoiceBox4 = countryChoiceBox4;
 
         ChoiceBox<Integer> fromYearChoiceBox = new ChoiceBox<>();
         ChoiceBox<Integer> toYearChoiceBox = new ChoiceBox<>();
@@ -141,7 +160,6 @@ public class DataAnalysisWindow {
                             for (int j = miniYear; j <= maxYear; j++) {
                                 fromYearChoiceBox.getItems().add(j);
                             }
-
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
                             thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -153,7 +171,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
-
+                                        startYear = newValue;
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -161,6 +179,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -174,8 +193,17 @@ public class DataAnalysisWindow {
                                             }
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
+                                            startYear = newValue;
                                         }
                                     }
+                                    toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
+                                        @Override
+                                        public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                                            if (newValue != null) {
+                                                endYear = newValue;
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -208,7 +236,6 @@ public class DataAnalysisWindow {
                             for (int j = miniYear; j <= maxYear; j++) {
                                 fromYearChoiceBox.getItems().add(j);
                             }
-
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
                             thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -220,6 +247,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
 
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
@@ -228,6 +256,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -241,8 +270,17 @@ public class DataAnalysisWindow {
                                             }
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
+                                            startYear = newValue;
                                         }
                                     }
+                                    toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
+                                        @Override
+                                        public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                                            if (newValue != null) {
+                                                endYear = newValue;
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -259,7 +297,7 @@ public class DataAnalysisWindow {
                             int maxYear = 0;
                             Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
 
-                            while(itr.hasNext()) {
+                            while (itr.hasNext()) {
                                 CellularDataCountry currentCountry = itr.next();
                                 if (currentCountry.getName() == newValue) {
                                     miniYear = currentCountry.getMinYear();
@@ -271,7 +309,6 @@ public class DataAnalysisWindow {
                             for (int j = miniYear; j <= maxYear; j++) {
                                 fromYearChoiceBox.getItems().add(j);
                             }
-
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
                             thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -283,6 +320,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
 
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
@@ -291,6 +329,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -304,8 +343,17 @@ public class DataAnalysisWindow {
                                             }
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
+                                            startYear = newValue;
                                         }
                                     }
+                                    toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
+                                        @Override
+                                        public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                                            if (newValue != null) {
+                                                endYear = newValue;
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -322,7 +370,7 @@ public class DataAnalysisWindow {
                             int maxYear = 0;
                             Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
 
-                            while(itr.hasNext()) {
+                            while (itr.hasNext()) {
                                 LifeExpectancyCountry currentCountry = itr.next();
                                 if (currentCountry.getName() == newValue) {
                                     miniYear = currentCountry.getMinYear();
@@ -334,7 +382,6 @@ public class DataAnalysisWindow {
                             for (int j = miniYear; j <= maxYear; j++) {
                                 fromYearChoiceBox.getItems().add(j);
                             }
-
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
                             thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -346,6 +393,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
 
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
@@ -354,6 +402,7 @@ public class DataAnalysisWindow {
                                         }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
+                                        startYear = newValue;
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -367,8 +416,17 @@ public class DataAnalysisWindow {
                                             }
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
+                                            startYear = newValue;
                                         }
                                     }
+                                    toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
+                                        @Override
+                                        public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                                            if (newValue != null) {
+                                                endYear = newValue;
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -396,26 +454,151 @@ public class DataAnalysisWindow {
         AnchorPane.setBottomAnchor(lastRow, 100d);
         AnchorPane.setRightAnchor(lastRow, 50d);
 
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.setTitle("Data Analysis");
         stage.show();
     }
 
     class getNumSubscriptionsForPeriod {
-
+        public double getNumSubscription(CellularDataCountry newCountry, int yearI, int yearII) {
+            double subsCount = 0;
+            Iterator<SubscriptionYear> itr = newCountry.getSubscription().iterator();
+            while (itr.hasNext()) {
+                SubscriptionYear subYear = itr.next();
+                int year = subYear.getYear();
+                if (year >= yearI && year <= yearII)
+                    subsCount += subYear.getSubscriptions();
+                if (year > yearII)
+                    break;
+            }
+            return subsCount;
+        }
     }
 
     class getAverageNumExpectanciesForPeriod {
-
+        public double getAvgLifeExpectancy(LifeExpectancyCountry newCountry, int yearI, int yearII) {
+            double totalLifeExpectancy = 0;
+            double averageLifeExpectancy = 0;
+            Iterator<ExpectancyYear> itr = newCountry.getSubscription().iterator();
+            int yearCount = yearII - yearI;
+            while (itr.hasNext()) {
+                ExpectancyYear subYear = itr.next();
+                int year = subYear.getYear();
+                if (year >= yearI && year <= yearII)
+                    totalLifeExpectancy += subYear.getExpectancies();
+                if (year > yearII)
+                    break;
+            }
+            averageLifeExpectancy = totalLifeExpectancy / yearCount;
+            return averageLifeExpectancy;
+        }
     }
 
     class resultWindow {
         public void result() {
             Stage stage = new Stage();
-            AnchorPane root = new AnchorPane();
+            double result = 0;
+            String countryName = "";
+            DecimalFormat twoDForm = new DecimalFormat("#.00");
 
-            Scene scene = new Scene(root, 500, 200);
+            if (CDorLE.getSelectionModel().isSelected(0)) {
+                CellularDataCountry selectedCountry = null;
+                String selectedCountryName = countryChoiceBox1.getSelectionModel().selectedItemProperty().getValue();
+                for (int i = 0; i < allCDCountries.length; i++) {
+                    if (allCDCountries[i].getName() == selectedCountryName) {
+                        selectedCountry = allCDCountries[i];
+                        countryName = selectedCountry.getName();
+                        break;
+                    }
+                }
+                result = new getNumSubscriptionsForPeriod().getNumSubscription(selectedCountry, startYear, endYear);
+            }
+
+            else if (CDorLE.getSelectionModel().isSelected(1)) {
+                LifeExpectancyCountry selectedCountry = null;
+                String selectedCountryName = countryChoiceBox2.getSelectionModel().selectedItemProperty().getValue();
+                for (int i = 0; i < allLECountries.length; i++) {
+                    if (allLECountries[i].getName() == selectedCountryName) {
+                        selectedCountry = allLECountries[i];
+                        countryName = selectedCountry.getName();
+                        break;
+                    }
+                }
+                result = new getAverageNumExpectanciesForPeriod().getAvgLifeExpectancy(selectedCountry, startYear, endYear);
+            }
+
+            else if (CDorLE.getSelectionModel().isSelected(3)) {
+                CellularDataCountry selectedCountry = null;
+                String selectedCountryName = countryChoiceBox3.getSelectionModel().selectedItemProperty().getValue();
+                Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
+                while (itr.hasNext()) {
+                    CellularDataCountry currentCountry = itr.next();
+                    if (currentCountry.getName() == selectedCountryName) {
+                        selectedCountry = currentCountry;
+                        countryName = selectedCountry.getName();
+                        break;
+                    }
+                }
+                result = new getNumSubscriptionsForPeriod().getNumSubscription(selectedCountry, startYear, endYear);
+            }
+
+            else if (CDorLE.getSelectionModel().isSelected(4)) {
+                LifeExpectancyCountry selectedCountry = null;
+                String selectedCountryName = countryChoiceBox4.getSelectionModel().selectedItemProperty().getValue();
+                Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
+                while (itr.hasNext()) {
+                    LifeExpectancyCountry currentCountry = itr.next();
+                    if (currentCountry.getName() == selectedCountryName) {
+                        selectedCountry = currentCountry;
+                        countryName = selectedCountry.getName();
+                        break;
+                    }
+                }
+                result = new getAverageNumExpectanciesForPeriod().getAvgLifeExpectancy(selectedCountry, startYear, endYear);
+            }
+
+            AnchorPane root = new AnchorPane();
+            HBox hBox1 = new HBox(10);
+            HBox hBox2 = new HBox(10);
+            VBox vbox = new VBox(10);
+            hBox1.setPadding(new Insets(10d));
+            hBox2.setPadding(new Insets(10d));
+            vbox.setPadding(new Insets(20d));
+
+            Text t0 = new Text("The total Subscription of ");
+            Text t1 = new Text("The Average Life Expectancy of ");
+            Text t2 = new Text(countryName);
+            t2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+            t2.setFill(Color.BLUE);
+            if (CDorLE.getSelectionModel().isSelected(0) || CDorLE.getSelectionModel().isSelected(3))
+                hBox1.getChildren().addAll(t0, t2);
+            else if (CDorLE.getSelectionModel().isSelected(1) || CDorLE.getSelectionModel().isSelected(4))
+                hBox1.getChildren().addAll(t1, t2);
+
+
+            Text from = new Text("from ");
+            int start = startYear;
+            String startYear = Integer.toString(start);
+            Text yearI = new Text(startYear);
+            int end = endYear;
+            String endYear = Integer.toString(end);
+            Text yearII = new Text(endYear);
+            Text to = new Text(" to ");
+            Text is = new Text(" is: ");
+
+            String resultInString = String.format("%.2f", result);
+            Text resultText = new Text(resultInString);
+            hBox2.getChildren().addAll(from, yearI, to, yearII, is, resultText);
+            Button BtClose = new Button("Close");
+
+            vbox.getChildren().addAll(hBox1, hBox2);
+            root.getChildren().addAll(vbox, BtClose);
+            BtClose.setOnAction(event -> stage.close());
+            AnchorPane.setRightAnchor(BtClose, 8d);
+            AnchorPane.setBottomAnchor(BtClose,10d);
+
+            Scene scene = new Scene(root, 550, 150);
             stage.setScene(scene);
             stage.setTitle("Result");
             stage.show();

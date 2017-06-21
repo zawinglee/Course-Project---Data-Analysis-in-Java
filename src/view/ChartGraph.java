@@ -70,14 +70,10 @@ public class ChartGraph extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));
 
-        AnchorPane right = new AnchorPane();
-        right.getChildren().add(dataAnalysisButton()); // places the data analysis switchGraphButton
+        borderPane.setRight(RightButton()); // places the data analysis switchGraphButton
 
-        AnchorPane left = new AnchorPane();
-        left.getChildren().add(switchGraphButton()); // places the switching buttons
+        borderPane.setLeft(LeftButton()); // places the switching buttons
 
-        borderPane.setLeft(left);
-        borderPane.setRight(right);
         return borderPane;
     }
     /**
@@ -87,14 +83,16 @@ public class ChartGraph extends Application {
      * @return hBox     [a pane that contains the data analysis button]
      * @author Zerong Li, Qianli Li
      */
-    public HBox dataAnalysisButton() {
-        HBox hBox = new HBox();
-        hBox.setSpacing(5);
-        hBox.setAlignment(Pos.CENTER);
+    public VBox RightButton() {
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(30,10,10,10));
+        HBox hBox1 = new HBox(10);
+        hBox1.setAlignment(Pos.CENTER);
         Button btd = new Button("Data Analysis");
-        hBox.getChildren().add(btd);
+        hBox1.getChildren().add(btd);
         btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
-        return hBox;
+        vBox.getChildren().addAll(hBox1);
+        return vBox;
     }
 
     /**
@@ -104,12 +102,13 @@ public class ChartGraph extends Application {
      * @return vBox     [a pane that contains two vertical buttons]
      * @author Zerong Li, Qianli Li
      */
-    public VBox switchGraphButton() {
+    public VBox LeftButton() {
         VBox vBox = new VBox();
+        vBox.setPadding(new Insets(30,10,10,10));
         Button btS = new Button("Subscription");
         Button btE = new Button("Birth Expectancy");
         vBox.getChildren().addAll(btS, btE);
-        vBox.setSpacing(10);
+        vBox.setSpacing(15);
         btS.setOnAction(e -> subscriptionScene());
         btE.setOnAction(e -> expectancyScene());
         return vBox;
