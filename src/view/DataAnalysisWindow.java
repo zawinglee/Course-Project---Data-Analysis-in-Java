@@ -20,7 +20,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import java.text.DecimalFormat;
 import java.util.Iterator;
 
 /**
@@ -173,6 +172,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
+                                        toYearChoiceBox.getSelectionModel().selectLast();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -195,6 +195,7 @@ public class DataAnalysisWindow {
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
+                                            toYearChoiceBox.getSelectionModel().selectLast();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -249,7 +250,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
-
+                                        toYearChoiceBox.getSelectionModel().selectLast();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -272,6 +273,7 @@ public class DataAnalysisWindow {
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
+                                            toYearChoiceBox.getSelectionModel().selectLast();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -322,7 +324,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
-
+                                        toYearChoiceBox.getSelectionModel().selectLast();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -345,6 +347,7 @@ public class DataAnalysisWindow {
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
+                                            toYearChoiceBox.getSelectionModel().selectLast();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -395,7 +398,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
-
+                                        toYearChoiceBox.getSelectionModel().selectLast();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -418,6 +421,7 @@ public class DataAnalysisWindow {
                                             thirdRow.getChildren().remove(empty3);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
+                                            toYearChoiceBox.getSelectionModel().selectLast();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -452,6 +456,8 @@ public class DataAnalysisWindow {
 
         AnchorPane.setTopAnchor(vbox, 5d);
         AnchorPane.setLeftAnchor(vbox, 10d);
+        AnchorPane.setRightAnchor(vbox,10d);
+        AnchorPane.setBottomAnchor(vbox, 5d);
         AnchorPane.setBottomAnchor(lastRow, 50d);
         AnchorPane.setRightAnchor(lastRow, 75d);
 
