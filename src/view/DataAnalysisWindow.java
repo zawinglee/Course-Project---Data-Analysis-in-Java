@@ -81,7 +81,7 @@ public class DataAnalysisWindow {
         this.CDorLE = CDorLE;
 
         ChoiceBox<String> empty = new ChoiceBox<>();
-        empty.getItems().add("Please make selection first");
+        empty.getItems().add("*Please make selection first*");
         empty.setValue("*Please make selection first*");
         secondRow.getChildren().addAll(title3, empty);
         ChoiceBox<String> empty2 = new ChoiceBox<>();
