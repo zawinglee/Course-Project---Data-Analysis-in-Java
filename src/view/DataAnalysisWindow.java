@@ -129,6 +129,7 @@ public class DataAnalysisWindow {
 
         ChoiceBox<Integer> fromYearChoiceBox = new ChoiceBox<>();
         ChoiceBox<Integer> toYearChoiceBox = new ChoiceBox<>();
+
         CDorLE.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -161,7 +162,10 @@ public class DataAnalysisWindow {
                                 fromYearChoiceBox.getItems().add(j);
                             }
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
-                            thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            if(oldValue == null)
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            else
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, toYearChoiceBox);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
                                 @Override
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
@@ -173,6 +177,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
                                         toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -181,9 +186,11 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
+                                        toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
-                                        thirdRow.getChildren().add(empty3);
+                                        thirdRow.getChildren().add(toYearChoiceBox);
                                         if (oldValue > newValue || newValue > oldValue) {
                                             for (int i = oldValue; i < maximumYear; i++) {
                                                 int size = toYearChoiceBox.getItems().size();
@@ -192,10 +199,11 @@ public class DataAnalysisWindow {
                                             for (int i = newValue; i <= maximumYear; i++) {
                                                 toYearChoiceBox.getItems().add(i);
                                             }
-                                            thirdRow.getChildren().remove(empty3);
+                                            thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
                                             toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -239,7 +247,10 @@ public class DataAnalysisWindow {
                                 fromYearChoiceBox.getItems().add(j);
                             }
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
-                            thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            if(oldValue == null)
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            else
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, toYearChoiceBox);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
                                 @Override
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
@@ -251,6 +262,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
                                         toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -259,6 +271,8 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
+                                        toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -270,10 +284,11 @@ public class DataAnalysisWindow {
                                             for (int i = newValue; i <= maximumYear; i++) {
                                                 toYearChoiceBox.getItems().add(i);
                                             }
-                                            thirdRow.getChildren().remove(empty3);
+                                            thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
                                             toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -313,7 +328,10 @@ public class DataAnalysisWindow {
                                 fromYearChoiceBox.getItems().add(j);
                             }
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
-                            thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            if(oldValue == null)
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            else
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, toYearChoiceBox);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
                                 @Override
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
@@ -325,6 +343,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
                                         toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -333,6 +352,8 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
+                                        toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -344,10 +365,11 @@ public class DataAnalysisWindow {
                                             for (int i = newValue; i <= maximumYear; i++) {
                                                 toYearChoiceBox.getItems().add(i);
                                             }
-                                            thirdRow.getChildren().remove(empty3);
+                                            thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
                                             toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
@@ -387,7 +409,10 @@ public class DataAnalysisWindow {
                                 fromYearChoiceBox.getItems().add(j);
                             }
                             thirdRow.getChildren().removeAll(from, fromYearChoiceBox, to, toYearChoiceBox, empty2, empty3);
-                            thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            if(oldValue == null)
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, empty3);
+                            else
+                                thirdRow.getChildren().addAll(from, fromYearChoiceBox, to, toYearChoiceBox);
                             fromYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
                                 @Override
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
@@ -399,6 +424,7 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
                                         toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (toYearChoiceBox.getItems().size() == 1) {
                                         toYearChoiceBox.getItems().remove(0);
                                         for (int i = newValue; i <= maximumYear; i++) {
@@ -407,6 +433,8 @@ public class DataAnalysisWindow {
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                         startYear = newValue;
+                                        toYearChoiceBox.getSelectionModel().selectLast();
+                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                     } else if (oldValue != null) {
                                         thirdRow.getChildren().removeAll(toYearChoiceBox, empty3);
                                         thirdRow.getChildren().add(empty3);
@@ -418,10 +446,11 @@ public class DataAnalysisWindow {
                                             for (int i = newValue; i <= maximumYear; i++) {
                                                 toYearChoiceBox.getItems().add(i);
                                             }
-                                            thirdRow.getChildren().remove(empty3);
+                                            thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                             thirdRow.getChildren().add(toYearChoiceBox);
                                             startYear = newValue;
                                             toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
                                         }
                                     }
                                     toYearChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
