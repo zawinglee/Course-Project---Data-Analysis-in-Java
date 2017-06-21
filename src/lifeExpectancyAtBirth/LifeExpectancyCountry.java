@@ -170,9 +170,22 @@ public class LifeExpectancyCountry {
 		return this.expectancies;
 	}
 
+	/**
+	 * returns the minimum year of the country object
+	 *
+	 * @return minYear	[the minimum year]
+	 * @author Zerong Li, Qianli Li
+	 */
 	public int getMinYear() {
 		return this.minYear;
 	}
+
+	/**
+	 * returns the maximum year of the country object
+	 *
+	 * @return	maxYear [the maximum year]
+	 * @author Zerong Li, Qianli Li
+	 */
 	public int getMaxYear() {
 		return this.maxYear;
 	}
