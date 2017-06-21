@@ -9,13 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import lifeExpectancyAtBirth.*;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -23,7 +20,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-
 import java.text.DecimalFormat;
 import java.util.Iterator;
 
@@ -48,6 +44,11 @@ public class DataAnalysisWindow {
     private ChoiceBox<String> countryChoiceBox3;
     private ChoiceBox<String> countryChoiceBox4;
 
+    /**
+     * Construct the Data Analysis Window
+     *
+     * @author Zerong Li, Qianli Li
+     */
     public DataAnalysisWindow(LinkedList<CellularDataCountry> newCDList, lifeExpectancyAtBirth.LinkedList<LifeExpectancyCountry> newLEList) {
         Stage stage = new Stage();
         this.selectedCDCountries = newCDList;
@@ -451,8 +452,8 @@ public class DataAnalysisWindow {
 
         AnchorPane.setTopAnchor(vbox, 5d);
         AnchorPane.setLeftAnchor(vbox, 10d);
-        AnchorPane.setBottomAnchor(lastRow, 100d);
-        AnchorPane.setRightAnchor(lastRow, 50d);
+        AnchorPane.setBottomAnchor(lastRow, 50d);
+        AnchorPane.setRightAnchor(lastRow, 75d);
 
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
@@ -460,6 +461,11 @@ public class DataAnalysisWindow {
         stage.show();
     }
 
+    /**
+     * Calculate the total number of subscriptions
+     *
+     * @author Zerong Li, Qianli Li
+     */
     class getNumSubscriptionsForPeriod {
         public double getNumSubscription(CellularDataCountry newCountry, int yearI, int yearII) {
             double subsCount = 0;
@@ -476,6 +482,11 @@ public class DataAnalysisWindow {
         }
     }
 
+    /**
+     * Calculate the average life expectancy
+     *
+     * @author Zerong Li, Qianli Li
+     */
     class getAverageNumExpectanciesForPeriod {
         public double getAvgLifeExpectancy(LifeExpectancyCountry newCountry, int yearI, int yearII) {
             double totalLifeExpectancy = 0;
@@ -495,12 +506,16 @@ public class DataAnalysisWindow {
         }
     }
 
+    /**
+     * Construct the window that shows result
+     *
+     * @author Zerong Li, Qianli Li
+     */
     class resultWindow {
         public void result() {
             Stage stage = new Stage();
             double result = 0;
             String countryName = "";
-            DecimalFormat twoDForm = new DecimalFormat("#.00");
 
             if (CDorLE.getSelectionModel().isSelected(0)) {
                 CellularDataCountry selectedCountry = null;

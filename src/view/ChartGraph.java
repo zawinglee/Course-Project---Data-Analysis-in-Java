@@ -10,7 +10,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -91,7 +90,8 @@ public class ChartGraph extends Application {
         Button btd = new Button("Data Analysis");
         hBox1.getChildren().add(btd);
         btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
-        vBox.getChildren().addAll(hBox1);
+        CheckBox cb = new CheckBox("checkBox");
+        vBox.getChildren().addAll(cb, hBox1);
         return vBox;
     }
 
