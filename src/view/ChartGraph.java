@@ -1,10 +1,12 @@
 package view;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import cellularData.CellularDataCountry;
 import cellularData.DataModelCD;
 import cellularData.LinkedList;
+import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -45,15 +47,15 @@ public class ChartGraph extends Application {
         alert.setContentText("Choose your option.");
         alert.setGraphic(null);
 
-        ButtonType buttonTypeOne = new ButtonType("Cellular Data");
-        ButtonType buttonTypeTwo = new ButtonType("Life Expectancy");
+        ButtonType cellularDataButton = new ButtonType("Cellular Data");
+        ButtonType lifeExpectancyButton = new ButtonType("Life Expectancy");
 
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        alert.getButtonTypes().setAll(cellularDataButton, lifeExpectancyButton);
         stage.setTitle("GraphView Test");
         Optional<ButtonType> result1 = alert.showAndWait();
-        if (result1.get() == buttonTypeOne) {
+        if (result1.get() == cellularDataButton) {
             stage.setScene(subscriptionScene());
-        } else if (result1.get() == buttonTypeTwo) {
+        } else if (result1.get() == lifeExpectancyButton) {
             stage.setScene(expectancyScene());
         }
     }
@@ -92,6 +94,10 @@ public class ChartGraph extends Application {
         btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
         CheckBox cb = new CheckBox("checkBox");
         vBox.getChildren().addAll(cb, hBox1);
+        Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
+        while (itr.hasNext()) {
+            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
+        }
         return vBox;
     }
 
