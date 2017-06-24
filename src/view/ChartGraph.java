@@ -70,35 +70,10 @@ public class ChartGraph extends Application {
     public BorderPane layout() {
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(20));
-
-        borderPane.setRight(RightButton()); // places the data analysis switchGraphButton
-
         borderPane.setLeft(LeftButton()); // places the switching buttons
-
         return borderPane;
     }
-    /**
-     * Method dataAnalysisButton() creates two buttons which are Subscription
-     * and Birth Expectancy
-     *
-     * @return hBox     [a pane that contains the data analysis button]
-     * @author Zerong Li, Qianli Li
-     */
-    public VBox RightButton() {
-        VBox vBox = new VBox(10);
-        vBox.setPadding(new Insets(30,10,10,10));
-        HBox hBox1 = new HBox(10);
-        hBox1.setAlignment(Pos.CENTER);
-        Button btd = new Button("Data Analysis");
-        hBox1.getChildren().add(btd);
-        btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
-        vBox.getChildren().addAll(hBox1);
-        Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
-        while (itr.hasNext()) {
-            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
-        }
-        return vBox;
-    }
+
 
     /**
      * Method switchGraphButton() creates two buttons which are Subscription
@@ -116,6 +91,9 @@ public class ChartGraph extends Application {
         vBox.setSpacing(15);
         btS.setOnAction(e -> subscriptionScene());
         btE.setOnAction(e -> expectancyScene());
+        Button btd = new Button("Data Analysis");
+        vBox.getChildren().add(btd);
+        btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
         return vBox;
     }
 
@@ -137,8 +115,15 @@ public class ChartGraph extends Application {
             this.selectedLECountries = graphView2.getSelectedCountries();
         }
         this.selectedCDCountries = graphView.getSelectedCountries();
+        VBox vBox = new VBox();
+        Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
+        while (itr.hasNext()) {
+            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
+        }
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
+        borderPane.setRight(vBox);
+
         Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
@@ -166,8 +151,15 @@ public class ChartGraph extends Application {
             this.selectedCDCountries = graphView2.getSelectedCountries();
         }
         this.selectedLECountries = graphView.getSelectedCountries();
+        VBox vBox = new VBox();
+        Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
+        while (itr.hasNext()) {
+            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
+        }
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);    // places the graph
+        borderPane.setRight(vBox);
+        borderPane.setRight(vBox);
         Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
