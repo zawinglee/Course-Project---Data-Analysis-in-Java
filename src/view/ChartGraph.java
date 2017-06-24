@@ -92,8 +92,7 @@ public class ChartGraph extends Application {
         Button btd = new Button("Data Analysis");
         hBox1.getChildren().add(btd);
         btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
-        CheckBox cb = new CheckBox("checkBox");
-        vBox.getChildren().addAll(cb, hBox1);
+        vBox.getChildren().addAll(hBox1);
         Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
         while (itr.hasNext()) {
             vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
