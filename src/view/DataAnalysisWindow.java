@@ -20,6 +20,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+
 import java.util.Iterator;
 
 /**
@@ -378,7 +379,7 @@ public class DataAnalysisWindow {
 
         AnchorPane.setTopAnchor(vbox, 5d);
         AnchorPane.setLeftAnchor(vbox, 10d);
-        AnchorPane.setRightAnchor(vbox,10d);
+        AnchorPane.setRightAnchor(vbox, 10d);
         AnchorPane.setBottomAnchor(vbox, 5d);
         AnchorPane.setBottomAnchor(lastRow, 50d);
         AnchorPane.setRightAnchor(lastRow, 75d);
@@ -456,9 +457,7 @@ public class DataAnalysisWindow {
                     }
                 }
                 result = new getNumSubscriptionsForPeriod().getNumSubscription(selectedCountry, startYear, endYear);
-            }
-
-            else if (CDorLE.getSelectionModel().isSelected(1)) {
+            } else if (CDorLE.getSelectionModel().isSelected(1)) {
                 LifeExpectancyCountry selectedCountry = null;
                 String selectedCountryName = countryChoiceBox2.getSelectionModel().selectedItemProperty().getValue();
                 for (int i = 0; i < allLECountries.length; i++) {
@@ -469,9 +468,7 @@ public class DataAnalysisWindow {
                     }
                 }
                 result = new getAverageNumExpectanciesForPeriod().getAvgLifeExpectancy(selectedCountry, startYear, endYear);
-            }
-
-            else if (CDorLE.getSelectionModel().isSelected(3)) {
+            } else if (CDorLE.getSelectionModel().isSelected(3)) {
                 CellularDataCountry selectedCountry = null;
                 String selectedCountryName = countryChoiceBox3.getSelectionModel().selectedItemProperty().getValue();
                 Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
@@ -484,9 +481,7 @@ public class DataAnalysisWindow {
                     }
                 }
                 result = new getNumSubscriptionsForPeriod().getNumSubscription(selectedCountry, startYear, endYear);
-            }
-
-            else if (CDorLE.getSelectionModel().isSelected(4)) {
+            } else if (CDorLE.getSelectionModel().isSelected(4)) {
                 LifeExpectancyCountry selectedCountry = null;
                 String selectedCountryName = countryChoiceBox4.getSelectionModel().selectedItemProperty().getValue();
                 Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
@@ -539,7 +534,7 @@ public class DataAnalysisWindow {
             root.getChildren().addAll(vbox, BtClose);
             BtClose.setOnAction(event -> stage.close());
             AnchorPane.setRightAnchor(BtClose, 8d);
-            AnchorPane.setBottomAnchor(BtClose,10d);
+            AnchorPane.setBottomAnchor(BtClose, 10d);
 
             Scene scene = new Scene(root, 550, 150);
             stage.setScene(scene);
