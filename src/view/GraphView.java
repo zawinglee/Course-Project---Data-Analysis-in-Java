@@ -20,6 +20,8 @@ public class GraphView extends LineChart<Number, Number> {
     private final NumberAxis yAxis;
     private int size;
     private LinkedList<CellularDataCountry> selectedCountries;
+    private XYChart.Series<Number, Number> countrySeries;
+
 
     /**
      * Constructor of Class GraphView which takes the Country linked list as parameter
@@ -70,7 +72,7 @@ public class GraphView extends LineChart<Number, Number> {
     public Series<Number, Number> seriesFromCountry(CellularDataCountry newCountry) {
         CellularDataCountry currentCountry = newCountry;
         String name = currentCountry.getName();
-        XYChart.Series<Number, Number> countrySeries = new XYChart.Series<Number, Number>();
+        countrySeries = new XYChart.Series<Number, Number>();
         countrySeries.setName(name);
         LinkedList<SubscriptionYear> SubscriptionsLinkedList = currentCountry.getSubscription();
         Iterator<SubscriptionYear> itr = SubscriptionsLinkedList.iterator(); // Traversing in the SubscriptionYear list
@@ -91,5 +93,21 @@ public class GraphView extends LineChart<Number, Number> {
      */
     public LinkedList<CellularDataCountry> getSelectedCountries() {
         return this.selectedCountries;
+    }
+
+    public Series<Number, Number> remove(int index){
+        XYChart.Series<Number, Number> copy = countrySeries;
+        copy.getData().remove(index);
+        return copy;
+    }
+
+    public Series<Number,Number> enhance (int index){
+        XYChart.Series<Number, Number> copy = countrySeries;
+        copy.getData().add(countrySeries.getData().get(index));
+        return copy;
+    }
+
+    public void update(Series<Number,Number> newSeries) {
+            this.getData().add(newSeries);
     }
 }

@@ -20,6 +20,7 @@ public class GraphView2 extends LineChart<Number, Number> {
     private final NumberAxis yAxis;
     private int size;
     private LinkedList<LifeExpectancyCountry> selectedCountries;
+    private XYChart.Series<Number, Number> countrySeries;
 
     /**
      * Constructor of Class GraphView which takes the Country linked list as parameter
@@ -70,7 +71,7 @@ public class GraphView2 extends LineChart<Number, Number> {
     public Series<Number, Number> seriesFromCountry(LifeExpectancyCountry newCountry) {
         LifeExpectancyCountry currentCountry = newCountry;
         String name = currentCountry.getName();
-        XYChart.Series<Number, Number> countrySeries = new XYChart.Series<Number, Number>();
+        countrySeries = new XYChart.Series<Number, Number>();
         countrySeries.setName(name);
         LinkedList<ExpectancyYear> SubscriptionsLinkedList = currentCountry.getSubscription();
         Iterator<ExpectancyYear> itr = SubscriptionsLinkedList.iterator(); // Traversing in the SubscriptionYear list
@@ -91,5 +92,21 @@ public class GraphView2 extends LineChart<Number, Number> {
      */
     public LinkedList<LifeExpectancyCountry> getSelectedCountries() {
         return this.selectedCountries;
+    }
+
+    public Series<Number, Number> remove(int index){
+        XYChart.Series<Number, Number> copy = countrySeries;
+        copy.getData().remove(index);
+        return copy;
+    }
+
+    public Series<Number,Number> enhance (int index){
+        XYChart.Series<Number, Number> copy = countrySeries;
+        copy.getData().add(countrySeries.getData().get(index));
+        return copy;
+    }
+
+    public void update(Series<Number,Number> newSeries) {
+        this.getData().add(newSeries);
     }
 }
