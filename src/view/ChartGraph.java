@@ -115,7 +115,8 @@ public class ChartGraph extends Application {
             this.selectedLECountries = graphView2.getSelectedCountries();
         }
         this.selectedCDCountries = graphView.getSelectedCountries();
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(10));
         Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
         while (itr.hasNext()) {
             vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
@@ -123,7 +124,6 @@ public class ChartGraph extends Application {
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
         borderPane.setRight(vBox);
-
         Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
@@ -151,7 +151,8 @@ public class ChartGraph extends Application {
             this.selectedCDCountries = graphView2.getSelectedCountries();
         }
         this.selectedLECountries = graphView.getSelectedCountries();
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(10);
+        vBox.setPadding(new Insets(10));
         Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
         while (itr.hasNext()) {
             vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
