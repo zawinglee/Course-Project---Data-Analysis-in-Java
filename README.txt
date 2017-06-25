@@ -91,7 +91,13 @@ Brief description of submitted files:
 	
  resources/tasks.md
 	- task description
-	 
+
+ resources/RUN1.png
+    - console output of ChartGraph.java
+
+ resources/RUN2.png
+    - console output of ChartGraph.java
+
  README.txt
     - description of submitted files
 
