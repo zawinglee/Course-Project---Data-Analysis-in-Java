@@ -7,7 +7,7 @@ import java.io.*;
  * Class CSVReader scans data form CSV files uses data to form different kinds
  * of arrays returns these arrays to main class
  * 
- * @author Zerong Li (Jerry), Sally Li
+ * @author Zerong Li (Jerry), Qianli Li
  */
 public class CSVReader {
 	private String[] countryNames;

@@ -5,7 +5,7 @@ import cellularData.CellularDataCountry;
 
 /**
  * Provides access to CSV data.
- * @author Foothill College, Bita M, Zerong Li (Jerry), Sally Li
+ * @author Foothill College, Bita M, Zerong Li (Jerry), Qianli Li
  */
 public class DataModelCD 
 {

@@ -6,7 +6,7 @@ import java.util.Iterator;
  * Class Country stores the name of the country and pass the country name and
  * subscriptions to class SubscriptionYear for storing and sorting data proposes
  * 
- * @author Zerong Li (Jerry), Sally Li
+ * @author Zerong Li (Jerry), Qianli Li
  */
 public class CellularDataCountry {
 	private String name;

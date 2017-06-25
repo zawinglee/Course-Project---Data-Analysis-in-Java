@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Creates a generic LinkedList class to implement the generic Iterable interface
  * 
- * @author Zerong Li (Jerry), Sally Li
+ * @author Zerong Li (Jerry), Qianli Li
  */
 public class LinkedList<T> implements Iterable<T> {
 	private Node head;

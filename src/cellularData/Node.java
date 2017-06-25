@@ -3,7 +3,7 @@ package cellularData;
 /**
  * Create a java generic class Node and generate a linked list of that type of object
  * 
- * @author Zerong Li (Jerry), Sally Li
+ * @author Zerong Li (Jerry), Qianli Li
  */
 public class Node<T> {
 	private T data;

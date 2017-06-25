@@ -3,7 +3,7 @@ package cellularData;
 /**
  * Creates SubscriptionYear class that stores single subscription of a specific year
  * 
- * @author Zerong Li (Jerry), Sally Li
+ * @author Zerong Li (Jerry), Qianli Li
  */
 public class SubscriptionYear {
 	private int year; // variable that stores the year for one subscription data
