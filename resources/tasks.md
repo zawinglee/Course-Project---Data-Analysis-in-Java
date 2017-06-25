@@ -39,8 +39,6 @@ Part A
         - CDCheckBoxAction [Zerong Li, Qianli Li]
         - LECheckBoxAction [Zerong Li, Qianli Li]
 
-    - PROJECTED COMPLETION DATE: June,25,2017
-    - ACTUAL COMPLETION DATE TO github.com repo: June,25,2017
 
 Part B
 ---------
