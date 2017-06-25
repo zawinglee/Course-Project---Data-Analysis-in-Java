@@ -6,14 +6,11 @@ import java.util.Optional;
 import cellularData.CellularDataCountry;
 import cellularData.DataModelCD;
 import cellularData.LinkedList;
-import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -74,7 +71,6 @@ public class ChartGraph extends Application {
         return borderPane;
     }
 
-
     /**
      * Method switchGraphButton() creates two buttons which are Subscription
      * and Birth Expectancy
@@ -108,6 +104,7 @@ public class ChartGraph extends Application {
         DataModelCD model = new DataModelCD();
         GraphView graphView = new GraphView(model, UserInputWindow());
         graphView.update();
+
         if (this.selectedLECountries == null) { // random generate a Life expectancy chart for calculating
             DataModelLE model2 = new DataModelLE();
             GraphView2 graphView2 = new GraphView2(model2, 5);
@@ -115,15 +112,24 @@ public class ChartGraph extends Application {
             this.selectedLECountries = graphView2.getSelectedCountries();
         }
         this.selectedCDCountries = graphView.getSelectedCountries();
+
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
-        Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
-        while (itr.hasNext()) {
-            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
-        }
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
         borderPane.setRight(vBox);
+
+        Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
+        CheckBox[] allCheckBoxes = new CheckBox[selectedCDCountries.size()];
+        int checkBoxCount = 0;
+        while (itr.hasNext()) {
+            CellularDataCountry current = itr.next(); // creates current object
+            allCheckBoxes[checkBoxCount] = new CheckBox(current.getName()); // creates new CheckBox
+            vBox.getChildren().add(allCheckBoxes[checkBoxCount]);
+            checkBoxCount++;
+        }
+        new MouseClickGraphLine().CellularDataLine(borderPane, allCheckBoxes, selectedCDCountries);
+
         Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
@@ -144,6 +150,7 @@ public class ChartGraph extends Application {
         DataModelLE model = new DataModelLE();
         GraphView2 graphView = new GraphView2(model, UserInputWindow());
         graphView.update();
+
         if (this.selectedCDCountries == null) { // random generate a subscription chart for calculating
             DataModelCD model2 = new DataModelCD();
             GraphView graphView2 = new GraphView(model2, 5);
@@ -151,16 +158,24 @@ public class ChartGraph extends Application {
             this.selectedCDCountries = graphView2.getSelectedCountries();
         }
         this.selectedLECountries = graphView.getSelectedCountries();
+
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
-        Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
-        while (itr.hasNext()) {
-            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
-        }
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);    // places the graph
         borderPane.setRight(vBox);
-        borderPane.setRight(vBox);
+
+        Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
+        CheckBox[] allCheckBoxes = new CheckBox[selectedLECountries.size()];
+        int checkBoxCount = 0;
+        while (itr.hasNext()) {
+            LifeExpectancyCountry current = itr.next(); // creates current object
+            allCheckBoxes[checkBoxCount] = new CheckBox(current.getName()); // creates new CheckBox
+            vBox.getChildren().add(allCheckBoxes[checkBoxCount]);
+            checkBoxCount++;
+        }
+        new MouseClickGraphLine().LifeExpectancyLine(borderPane, allCheckBoxes, selectedLECountries);
+
         Scene scene = new Scene(borderPane, 1000, 600);
         this.theStage.setScene(scene);
         // Set the stage title
