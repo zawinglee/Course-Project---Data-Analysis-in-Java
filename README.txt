@@ -51,7 +51,7 @@ Brief description of submitted files:
  src/lifeExpectancyAtBirth/SubscriptionYear.java
 	- Creates ExpectancyYear class that stores single expectancy of a specific year
 
- src/view/ChartGraph.java -> *class to start our Application*
+ src/view/ChartGraph.java -> ***CLASS TO START THE APPLICATION***
 	- Creates a model of the data
 	- Uses the model to instantiate an object of type javafx.scene.chart.LineChart
 	- via the GraphView class
