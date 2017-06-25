@@ -41,6 +41,24 @@ public class GraphView extends LineChart<Number, Number> {
     }
 
     /**
+     * Constructor of Class GraphView which takes the Country linked list as parameter
+     * and setup the XY Axis of the chart
+     *
+     * @param newList [a list contains selected CellularDataCountry]
+     * @author Zerong Li, Qianli Li
+     */
+    public GraphView(LinkedList<CellularDataCountry> newList) {
+        super(new NumberAxis(), new NumberAxis());
+        super.setTitle("TEAM 03");
+        this.xAxis = (NumberAxis) getXAxis();
+        this.yAxis = (NumberAxis) getYAxis();
+        this.xAxis.setLabel("Year");
+        this.yAxis.setLabel("Subscription Rate");
+        this.xAxis.setForceZeroInRange(false);
+        this.selectedCountries = newList;
+    }
+
+    /**
      * Method update() will goes through the list of Country objects and
      * creates a series from each element
      *
@@ -52,6 +70,21 @@ public class GraphView extends LineChart<Number, Number> {
         LinkedList<CellularDataCountry> selectedCountryList = countrySelector.selectCountries();
         this.selectedCountries = selectedCountryList;
         Iterator<CellularDataCountry> itr = selectedCountryList.iterator();
+        while (itr.hasNext()) {
+            CellularDataCountry selectCountry = itr.next();
+            Series<Number, Number> currentSeries = this.seriesFromCountry(selectCountry);
+            this.getData().add(currentSeries);
+        }
+    }
+
+    /**
+     * Method update2() will goes through the list of Country objects and
+     * creates a series from each element
+     *
+     * @author Zerong Li, Qianli Li
+     */
+    public void update2() {
+        Iterator<CellularDataCountry> itr = selectedCountries.iterator();
         while (itr.hasNext()) {
             CellularDataCountry selectCountry = itr.next();
             Series<Number, Number> currentSeries = this.seriesFromCountry(selectCountry);
