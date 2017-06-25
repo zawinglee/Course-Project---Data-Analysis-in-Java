@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import lifeExpectancyAtBirth.DataModelLE;
@@ -112,9 +113,10 @@ public class ChartGraph extends Application {
             this.selectedLECountries = graphView2.getSelectedCountries();
         }
         this.selectedCDCountries = graphView.getSelectedCountries();
-
-        VBox vBox = new VBox(10);
+        Text text = new Text("Select to hide/show lines: ");
+        VBox vBox = new VBox(10,text);
         vBox.setPadding(new Insets(10));
+
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
         borderPane.setRight(vBox);
@@ -158,8 +160,8 @@ public class ChartGraph extends Application {
             this.selectedCDCountries = graphView2.getSelectedCountries();
         }
         this.selectedLECountries = graphView.getSelectedCountries();
-
-        VBox vBox = new VBox(10);
+        Text text = new Text("Select to hide/show lines: ");
+        VBox vBox = new VBox(10,text);
         vBox.setPadding(new Insets(10));
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);    // places the graph
