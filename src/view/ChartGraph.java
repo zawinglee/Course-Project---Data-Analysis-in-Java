@@ -1,7 +1,6 @@
 package view;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 import cellularData.CellularDataCountry;
@@ -85,7 +84,7 @@ public class ChartGraph extends Application {
      */
     public VBox LeftButton() {
         VBox vBox = new VBox();
-        vBox.setPadding(new Insets(30, 10, 10, 10));
+        vBox.setPadding(new Insets(30,10,10,10));
         Button btS = new Button("Subscription");
         Button btE = new Button("Birth Expectancy");
         vBox.getChildren().addAll(btS, btE);
@@ -106,7 +105,6 @@ public class ChartGraph extends Application {
      * @author Zerong Li, Qianli Li
      */
     public Scene subscriptionScene() {
-        LinkedList<CheckBox> checkBoxes = new LinkedList<CheckBox>();
         DataModelCD model = new DataModelCD();
         GraphView graphView = new GraphView(model, UserInputWindow());
         graphView.update();
@@ -119,22 +117,9 @@ public class ChartGraph extends Application {
         this.selectedCDCountries = graphView.getSelectedCountries();
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
-        int count = 0;
         Iterator<CellularDataCountry> itr = selectedCDCountries.iterator();
         while (itr.hasNext()) {
-            checkBoxes.add(new CheckBox(itr.next().getName()));
-            vBox.getChildren().addAll(checkBoxes.getIndex(count));
-            checkBoxes.getIndex(count).setSelected(true);
-            int finalCount = count;
-            checkBoxes.getIndex(count).setOnAction(event -> {
-                        if (checkBoxes.getIndex(finalCount).isSelected() == false) {
-                            graphView.update(graphView.remove(finalCount));
-                        } else {
-                            graphView.update(graphView.remove(finalCount));
-                        }
-                    }
-            );
-            count++;
+            vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
         }
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
@@ -169,21 +154,8 @@ public class ChartGraph extends Application {
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
         Iterator<LifeExpectancyCountry> itr = selectedLECountries.iterator();
-        int count = 0;
         while (itr.hasNext()) {
             vBox.getChildren().addAll(new CheckBox(itr.next().getName()));
-            CheckBox checkBox = (CheckBox) vBox.getChildren().get(count);
-            checkBox.setSelected(true);
-            int finalCount = count;
-            checkBox.setOnAction(event -> {
-                        if (checkBox.isSelected() == false) {
-                            graphView.update(graphView.remove(finalCount));
-                        } else {
-                            graphView.update(graphView.enhance(finalCount));
-                        }
-                    }
-            );
-            count++;
         }
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);    // places the graph
