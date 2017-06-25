@@ -10,8 +10,12 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -84,12 +88,17 @@ public class ChartGraph extends Application {
         vBox.setPadding(new Insets(30,10,10,10));
         Button btS = new Button("Subscription");
         Button btE = new Button("Birth Expectancy");
-        vBox.getChildren().addAll(btS, btE);
+        Button btd = new Button("Data Analysis");
+        Text text = new Text("@author: Zerong Li, Qianli Li");
+        text.setFont(Font.font("Arial", FontWeight.BOLD, 10));
+        text.setFill(Color.GRAY);
+        AnchorPane anchorPane = new AnchorPane(text);
+        anchorPane.setPadding(new Insets(300d,0,0,0));
+        AnchorPane.setTopAnchor(text, 100d);
+        vBox.getChildren().addAll(btS, btE, btd, anchorPane);
         vBox.setSpacing(15);
         btS.setOnAction(e -> subscriptionScene());
         btE.setOnAction(e -> expectancyScene());
-        Button btd = new Button("Data Analysis");
-        vBox.getChildren().add(btd);
         btd.setOnAction(e -> new DataAnalysisWindow(this.selectedCDCountries, this.selectedLECountries));
         return vBox;
     }
@@ -113,9 +122,10 @@ public class ChartGraph extends Application {
             this.selectedLECountries = graphView2.getSelectedCountries();
         }
         this.selectedCDCountries = graphView.getSelectedCountries();
+
         Text text = new Text("Select to hide/show lines: ");
         VBox vBox = new VBox(10,text);
-        vBox.setPadding(new Insets(10));
+        vBox.setPadding(new Insets(30,10,10,10));
 
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);
@@ -162,7 +172,7 @@ public class ChartGraph extends Application {
         this.selectedLECountries = graphView.getSelectedCountries();
         Text text = new Text("Select to hide/show lines: ");
         VBox vBox = new VBox(10,text);
-        vBox.setPadding(new Insets(10));
+        vBox.setPadding(new Insets(30,10,10,10));
         BorderPane borderPane = layout();
         borderPane.setCenter(graphView);    // places the graph
         borderPane.setRight(vBox);
