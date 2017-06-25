@@ -135,7 +135,7 @@ public class DataAnalysisWindow {
         CDorLE.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue == "Total Subscription (All Countries)") {
+                if (CDorLE.getSelectionModel().isSelected(0)) {
                     secondRow.getChildren().removeAll(empty, countryChoiceBox2, countryChoiceBox3, countryChoiceBox4);
                     thirdRow.getChildren().removeAll(from, empty2, to, empty3, fromYearChoiceBox, toYearChoiceBox);
                     thirdRow.getChildren().addAll(from, empty2, to, empty3);
@@ -145,21 +145,21 @@ public class DataAnalysisWindow {
                         public void changed(ObservableValue<? extends String> observable2, String oldValue, String newValue) {
                             int miniYear = 9999;
                             int maxYear = 0;
-                            int i = 0;
+                            int index = 0;
 
                             fromYearChoiceBox.getItems().clear();
-                            for (; i < allCDCountries.length; i++) {
-                                if (allCDCountries[i].getName() == newValue) {
+                            for (; index < allCDCountries.length; index++) {
+                                if (allCDCountries[index].getName() == newValue) {
                                     break;
                                 }
                             }
 
-                            if (allCDCountries[i].getMinYear() < miniYear) {
-                                miniYear = allCDCountries[i].getMinYear();
+                            if (allCDCountries[index].getMinYear() < miniYear) {
+                                miniYear = allCDCountries[index].getMinYear();
                                 minimumYear = miniYear;
                             }
-                            if (allCDCountries[i].getMaxYear() > maxYear) {
-                                maxYear = allCDCountries[i].getMaxYear();
+                            if (allCDCountries[index].getMaxYear() > maxYear) {
+                                maxYear = allCDCountries[index].getMaxYear();
                                 maximumYear = maxYear;
                             }
                             for (int j = miniYear; j <= maxYear; j++) {
@@ -176,8 +176,10 @@ public class DataAnalysisWindow {
                                             toYearChoiceBox.getItems().add(i);
                                         }
                                         startYear = newValue;
-                                        toYearChoiceBox.getSelectionModel().selectLast();
-                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        if (toYearChoiceBox.getItems().size() != 0) {
+                                            toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                     }
@@ -193,7 +195,7 @@ public class DataAnalysisWindow {
                             });
                         }
                     });
-                } else if (newValue == "Average Life Expectancy (All Countries)") {
+                } else if (CDorLE.getSelectionModel().isSelected(1)) {
                     secondRow.getChildren().removeAll(empty, countryChoiceBox1, countryChoiceBox3, countryChoiceBox4);
                     thirdRow.getChildren().removeAll(from, empty2, to, empty3, fromYearChoiceBox, toYearChoiceBox);
                     thirdRow.getChildren().addAll(from, empty2, to, empty3);
@@ -203,21 +205,21 @@ public class DataAnalysisWindow {
                         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                             int miniYear = 9999;
                             int maxYear = 0;
-                            int i = 0;
+                            int index = 0;
 
                             fromYearChoiceBox.getItems().clear();
-                            for (; i < allLECountries.length; i++) {
-                                if (allLECountries[i].getName() == newValue) {
+                            for (; index < allLECountries.length; index++) {
+                                if (allLECountries[index].getName() == newValue) {
                                     break;
                                 }
                             }
 
-                            if (allLECountries[i].getMinYear() < miniYear) {
-                                miniYear = allLECountries[i].getMinYear();
+                            if (allLECountries[index].getMinYear() < miniYear) {
+                                miniYear = allLECountries[index].getMinYear();
                                 minimumYear = miniYear;
                             }
-                            if (allLECountries[i].getMaxYear() > maxYear) {
-                                maxYear = allLECountries[i].getMaxYear();
+                            if (allLECountries[index].getMaxYear() > maxYear) {
+                                maxYear = allLECountries[index].getMaxYear();
                                 maximumYear = maxYear;
                             }
                             for (int j = miniYear; j <= maxYear; j++) {
@@ -230,12 +232,14 @@ public class DataAnalysisWindow {
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
                                     toYearChoiceBox.getItems().clear();
                                     if (newValue != null) {
-                                        for (int i = newValue; i <= maximumYear; i++) {
+                                        for (int i = newValue + 1; i <= maximumYear; i++) {
                                             toYearChoiceBox.getItems().add(i);
                                         }
                                         startYear = newValue;
-                                        toYearChoiceBox.getSelectionModel().selectLast();
-                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        if (toYearChoiceBox.getItems().size() != 0) {
+                                            toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                     }
@@ -251,7 +255,7 @@ public class DataAnalysisWindow {
                             });
                         }
                     });
-                } else if (newValue == "Total Subscription (Graph Only)") {
+                } else if (CDorLE.getSelectionModel().isSelected(3)) {
                     secondRow.getChildren().removeAll(empty, countryChoiceBox1, countryChoiceBox2, countryChoiceBox4);
                     thirdRow.getChildren().removeAll(from, empty2, to, empty3, fromYearChoiceBox, toYearChoiceBox);
                     thirdRow.getChildren().addAll(from, empty2, to, empty3);
@@ -288,8 +292,10 @@ public class DataAnalysisWindow {
                                             toYearChoiceBox.getItems().add(i);
                                         }
                                         startYear = newValue;
-                                        toYearChoiceBox.getSelectionModel().selectLast();
-                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        if (toYearChoiceBox.getItems().size() != 0) {
+                                            toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                     }
@@ -305,7 +311,7 @@ public class DataAnalysisWindow {
                             });
                         }
                     });
-                } else if (newValue == "Average Life Expectancy (Graph Only)") {
+                } else if (CDorLE.getSelectionModel().isSelected(4)) {
                     secondRow.getChildren().removeAll(empty, countryChoiceBox1, countryChoiceBox2, countryChoiceBox3);
                     thirdRow.getChildren().removeAll(from, empty2, to, empty3, fromYearChoiceBox, toYearChoiceBox);
                     thirdRow.getChildren().addAll(from, empty2, to, empty3);
@@ -338,12 +344,14 @@ public class DataAnalysisWindow {
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
                                     toYearChoiceBox.getItems().clear();
                                     if (newValue != null) {
-                                        for (int i = newValue; i <= maximumYear; i++) {
+                                        for (int i = newValue + 1; i <= maximumYear; i++) {
                                             toYearChoiceBox.getItems().add(i);
                                         }
                                         startYear = newValue;
-                                        toYearChoiceBox.getSelectionModel().selectLast();
-                                        endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        if (toYearChoiceBox.getItems().size() != 0) {
+                                            toYearChoiceBox.getSelectionModel().selectLast();
+                                            endYear = toYearChoiceBox.getSelectionModel().getSelectedItem();
+                                        }
                                         thirdRow.getChildren().removeAll(empty3, toYearChoiceBox);
                                         thirdRow.getChildren().add(toYearChoiceBox);
                                     }
@@ -391,7 +399,7 @@ public class DataAnalysisWindow {
     }
 
     /**
-     * Calculate the total number of subscriptions
+     * Calculates the total number of subscriptions
      *
      * @author Zerong Li, Qianli Li
      */
@@ -412,14 +420,14 @@ public class DataAnalysisWindow {
     }
 
     /**
-     * Calculate the average life expectancy
+     * Calculates the average life expectancy
      *
      * @author Zerong Li, Qianli Li
      */
     class getAverageNumExpectanciesForPeriod {
         public double getAvgLifeExpectancy(LifeExpectancyCountry newCountry, int yearI, int yearII) {
             double totalLifeExpectancy = 0;
-            double averageLifeExpectancy = 0;
+            double averageLifeExpectancy;
             Iterator<ExpectancyYear> itr = newCountry.getSubscription().iterator();
             int yearCount = yearII - yearI;
             while (itr.hasNext()) {
@@ -436,7 +444,7 @@ public class DataAnalysisWindow {
     }
 
     /**
-     * Construct the window that shows result
+     * Constructs the window that shows result
      *
      * @author Zerong Li, Qianli Li
      */

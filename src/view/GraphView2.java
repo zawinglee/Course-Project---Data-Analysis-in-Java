@@ -86,8 +86,8 @@ public class GraphView2 extends LineChart<Number, Number> {
     public void update2() {
         Iterator<LifeExpectancyCountry> itr = selectedCountries.iterator();
         while (itr.hasNext()) {
-            LifeExpectancyCountry selectCountry = itr.next();
-            Series<Number, Number> currentSeries = this.seriesFromCountry(selectCountry);
+            LifeExpectancyCountry selectedCountry = itr.next();
+            Series<Number, Number> currentSeries = this.seriesFromCountry(selectedCountry);
             this.getData().add(currentSeries);
         }
     }
