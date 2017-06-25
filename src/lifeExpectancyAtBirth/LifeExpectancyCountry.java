@@ -122,7 +122,7 @@ public class LifeExpectancyCountry {
 		}
 
 		Iterator<ExpectancyYear> itr = expectancies.iterator(); // Traversing in the SubscriptionYear list
-		yearCount = yearII - yearI;
+		yearCount = yearII - yearI + 1;
 		while (itr.hasNext()) {
 			ExpectancyYear subYear = itr.next();
 			int year = subYear.getYear();

@@ -232,7 +232,7 @@ public class DataAnalysisWindow {
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
                                     toYearChoiceBox.getItems().clear();
                                     if (newValue != null) {
-                                        for (int i = newValue + 1; i <= maximumYear; i++) {
+                                        for (int i = newValue; i <= maximumYear; i++) {
                                             toYearChoiceBox.getItems().add(i);
                                         }
                                         startYear = newValue;
@@ -344,7 +344,7 @@ public class DataAnalysisWindow {
                                 public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
                                     toYearChoiceBox.getItems().clear();
                                     if (newValue != null) {
-                                        for (int i = newValue + 1; i <= maximumYear; i++) {
+                                        for (int i = newValue; i <= maximumYear; i++) {
                                             toYearChoiceBox.getItems().add(i);
                                         }
                                         startYear = newValue;
@@ -429,7 +429,7 @@ public class DataAnalysisWindow {
             double totalLifeExpectancy = 0;
             double averageLifeExpectancy;
             Iterator<ExpectancyYear> itr = newCountry.getSubscription().iterator();
-            int yearCount = yearII - yearI;
+            int yearCount = yearII - yearI + 1;
             while (itr.hasNext()) {
                 ExpectancyYear subYear = itr.next();
                 int year = subYear.getYear();
