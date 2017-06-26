@@ -387,9 +387,14 @@ public class DataAnalysisWindow {
         lastRow.getChildren().addAll(btOK, btCancel);
 
         root.getChildren().addAll(vbox, lastRow);
-        root.setOnKeyPressed(event -> {
+        vbox.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 new resultWindow().result();
+            }
+        });
+        root.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ESCAPE)) {
+               stage.close();
             }
         });
 
