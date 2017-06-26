@@ -392,6 +392,11 @@ public class DataAnalysisWindow {
                 new resultWindow().result();
             }
         });
+        root.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ESCAPE)) {
+               stage.close();
+            }
+        });
 
         AnchorPane.setTopAnchor(vbox, 5d);
         AnchorPane.setLeftAnchor(vbox, 10d);
