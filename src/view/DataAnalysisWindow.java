@@ -6,6 +6,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import lifeExpectancyAtBirth.*;
 import javafx.geometry.Insets;
@@ -377,13 +380,18 @@ public class DataAnalysisWindow {
         thirdRow.prefWidthProperty().bind(firstRow.widthProperty());
 
         HBox lastRow = new HBox(10);
-        Button btOK = new Button("OK");
+        Button btOK = new Button("OK (or press ENTER key)");
         Button btCancel = new Button("Close");
         btOK.setOnAction(e -> new resultWindow().result());
         btCancel.setOnAction(event -> stage.close());
         lastRow.getChildren().addAll(btOK, btCancel);
 
         root.getChildren().addAll(vbox, lastRow);
+        root.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                new resultWindow().result();
+            }
+        });
 
         AnchorPane.setTopAnchor(vbox, 5d);
         AnchorPane.setLeftAnchor(vbox, 10d);
@@ -536,7 +544,13 @@ public class DataAnalysisWindow {
             String resultInString = String.format("%.2f", result);
             Text resultText = new Text(resultInString);
             hBox2.getChildren().addAll(from, yearI, to, yearII, is, resultText);
-            Button BtClose = new Button("Close");
+            Button BtClose = new Button("Close (or press ENTER key)");
+
+            root.setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                   stage.close();
+                }
+            });
 
             vbox.getChildren().addAll(hBox1, hBox2);
             root.getChildren().addAll(vbox, BtClose);
